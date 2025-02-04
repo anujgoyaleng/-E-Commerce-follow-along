@@ -98,3 +98,11 @@ Validated the password using bcrypt.
 Compared the entered password with the stored hashed password for authentication.
 Generated a JWT token upon successful login for authentication.
 Implemented error handling for invalid credentials and server errors.
+
+## Milestone -8 Progress:
+Three files were made:
+1. Product.jsx in Components/auth to store info. about product details.
+2. user.js
+3. data/js
+
+We have createrd a reusable card component with props for product details.
