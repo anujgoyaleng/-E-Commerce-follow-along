@@ -106,3 +106,112 @@ Three files were made:
 3. data/js
 
 We have createrd a reusable card component with props for product details.
+
+## Milestone 9: Create Product Component
+---
+
+Overview
+
+In this milestone, we have implemented the Create Product component for the Follow-Along Ecommerce project. This component allows users to create new products by entering details such as name, description, category, tags, price, stock, email, and uploading images.
+
+Features Implemented
+
+Form Inputs: Users can input product details including name, description, category, tags, price, stock, and email.
+
+Image Upload & Preview: Users can upload multiple images, which will be displayed as previews before submission.
+
+Category Selection: A dropdown to choose a product category.
+
+Validation & Submission: Required fields are enforced, and product data is logged on submission.
+
+Memory Optimization: Object URLs for image previews are revoked to prevent memory leaks.
+
+Technologies Used
+
+React: Functional components and hooks (useState, useEffect).
+
+Tailwind CSS: For styling.
+
+React Icons: AiOutlinePlusCircle for the image upload button.
+
+
+## Mlestone 10: Product Management Enhancements
+---
+
+Milestone 10 focuses on refining the product creation and management process. This includes improving the form submission flow, handling errors effectively, and ensuring a seamless user experience.
+
+Key Features Implemented
+
+Form Submission & Error Handling
+
+Implemented a structured form to capture product details including:
+
+Name
+
+Description
+
+Price
+
+Category
+
+Tags
+
+Stock
+
+Email
+
+Multiple Images
+
+Integrated multiple image selection for better product representation.
+
+Enhanced error handling using try-catch methods to catch and display errors during product creation.
+
+Debugging tools added to log form data before submission for easier troubleshooting.
+
+API Integration
+
+Built a POST endpoint to receive and validate product data.
+
+Used FormData to handle file uploads efficiently.
+
+Sent form data to the backend API, ensuring proper request formatting (multipart/form-data).
+
+Provided real-time feedback to users on successful product creation or errors encountered.
+
+Why Validation & Error Handling?
+
+Ensures only valid data is stored in the database.
+
+Helps users identify and correct input mistakes quickly.
+
+Prevents incomplete or invalid submissions, reducing inconsistencies in the system.
+
+Technologies Used
+
+React.js for frontend UI
+
+Express.js for backend API handling
+
+MongoDB & Mongoose for database storage
+
+Axios for HTTP requests
+
+Postman for API testing
+
+Next Steps & Enhancements
+
+Implement user authentication to restrict product uploads to authorized users.
+
+Develop an admin panel to manage and moderate product listings.
+
+Introduce real-time image preview and editing capabilities.
+
+Optimize database indexing for faster search and retrieval.
+
+Repository & Submission Details
+
+GitHub Repository: [Your Repository Link Here]
+
+Progress Summary: This milestone enhanced the product creation process by improving form submission, adding error handling, and integrating API communication.
+
+Submission: The repository has been updated, and all changes have been pushed successfully.
