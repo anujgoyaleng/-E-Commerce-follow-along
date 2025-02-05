@@ -29,7 +29,13 @@ const productSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "Please provide an email"],
-      match: [/.+@.+\..+/, "Please provide a valid email address"],
+      match: [
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Please provide a valid email address",
+      ], // Updated regex for better email validation
+      set: function(value) {
+        return value.trim(); // Trim whitespace from email before saving
+      },
     },
     images: {
       type: [String], // Array of image URLs (base64 or hosted links)
