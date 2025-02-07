@@ -33,7 +33,7 @@ router.post(
 
     // Map uploaded files to accessible URLs
     const images = req.files.map((file) => {
-      return `/product/${path.basename(file.path)}`;
+      return `/products/${path.basename(file.path)}`;
     });
     // Validate input data
     const validationErrors = validateProductData({
