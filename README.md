@@ -215,3 +215,79 @@ GitHub Repository: [Your Repository Link Here]
 Progress Summary: This milestone enhanced the product creation process by improving form submission, adding error handling, and integrating API communication.
 
 Submission: The repository has been updated, and all changes have been pushed successfully.
+
+
+
+## Milestone 11 - Dynamic Home Page with Product Data
+
+### Overview
+#### In this milestone, we will make the home page dynamic by fetching and displaying all products stored in MongoDB.
+
+- We will write a backend API endpoint to retrieve product data.
+- The frontend will call this API and display the products dynamically using the ProductCard component.
+#### Learning Goals 🎯
+By completing this milestone, you will learn:
+- ✅ How to write an API endpoint to fetch data from MongoDB.
+- ✅ How to receive and handle data on the frontend.
+- ✅ How to display data dynamically using components.
+
+### Steps to Complete Milestone 11 📝
+
+1. Backend: Create an API Endpoint
+- Create an API route in Express.js to fetch all products from MongoDB.
+- Use Mongoose to retrieve the data.
+- This API fetches all products and sends them in JSON format.
+- The frontend will call this API to get the list of products.
+
+
+2. Frontend: Fetch Product Data
+- Create a function to fetch product data from the backend using fetch() or Axios.
+- Store the data in a state variable.
+- useEffect calls the API when the page loads.
+- setProducts stores the fetched data.
+- map() loops through the products and passes each to ProductCard.
+
+
+3. Display Products Dynamically
+- The ProductCard component will receive product data as a prop and display it.
+- Displays product image, name, and price dynamically.
+
+#### Final Outcome 🎉
+- ✅ The backend API sends all product data.
+- ✅ The frontend fetches this data.
+- ✅ Products are dynamically displayed using the ProductCard component.
+
+---
+
+# Milestone 12: My Products Page
+
+## Overview
+In this milestone, we will create a "My Products" page that displays all products added by a user based on their email. We will accomplish this by writing a backend endpoint to fetch products from MongoDB filtered by the user's email and dynamically displaying them on the frontend using the previously created product card component.
+
+## Learning Goals 🎯
+By the end of this milestone, you will:
+
+- Learn how to write an endpoint to filter and send data from MongoDB based on a user's email.
+- Understand how to fetch and receive data on the frontend.
+- Display data dynamically using a product card component.
+
+## Steps to Complete Milestone 12 📝
+
+### Backend:
+1. **Create an endpoint** in your backend application that retrieves all products associated with a user's email from MongoDB.
+2. **Filter products** based on the email provided in the request.
+3. **Send the filtered data** as a response to the frontend.
+
+### Frontend:
+1. **Write a function** to fetch the filtered product data from the backend.
+2. **Process the received data** and pass it to the product card component.
+3. **Dynamically display** the products on the "My Products" page.
+
+## Notes
+- This lesson will help in understanding how to filter data based on specific constraints and send it to the client efficiently.
+- Ensure proper error handling for scenarios where no products are found for a given email.
+
+## Next Steps
+- Enhance the UI with better styling and user experience.
+- Implement pagination if needed for better performance.
+- Add authentication checks to ensure only the logged-in user's products are displayed.
