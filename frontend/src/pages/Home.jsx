@@ -1,13 +1,40 @@
+
 import  { useState, useEffect } from "react";
-import Product from "../components/auth/Product";
-import { productData } from "../static/data";
+import Product from "../components/auth/Product.jsx";
+// import { productData } from "../static/data.js";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setProducts(productData);
+    fetch("http://localhost:5050/api/v2/product/get-products")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json()
+      })
+      .then((data) => {
+        setProducts(data.products);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(" Error fetching products:", err);
+        setError(err.message);
+        setLoading(false);
+      })
   }, []);
+
+  if(loading){
+    return (
+      <div className="test-center text-white mt-10">Loading Products...</div>
+    )
+  }
+  if(error){
+    return <div className="test-center text-red-500 mt-10">Error: {error}</div>
+  }
 
   return (
     <>
@@ -23,3 +50,4 @@ export default function Home() {
     </>
   );
 }
+ 
