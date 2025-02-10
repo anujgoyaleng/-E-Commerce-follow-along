@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Product from "../components/auth/Product";
 
 export default function MyProducts() {
@@ -58,5 +58,5 @@ export default function MyProducts() {
                 ))}
             </div>
         </div>
-    );
+);
 }
