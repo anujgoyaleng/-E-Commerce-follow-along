@@ -291,3 +291,50 @@ By the end of this milestone, you will:
 - Enhance the UI with better styling and user experience.
 - Implement pagination if needed for better performance.
 - Add authentication checks to ensure only the logged-in user's products are displayed.
+
+
+## Milestone 13: Updating Data in MongoDB
+
+📌 Objective
+
+In this milestone, we will implement an update feature for our application. This will include:
+
+Creating an endpoint in the backend to update data in MongoDB.
+
+Adding an "Edit" button to the product card in the frontend.
+
+Pre-filling a form with existing product details when the edit button is clicked.
+
+Allowing users to modify the data and save changes.
+
+ Backend: Implementing Update Endpoint
+
+Step 1: Define the Update Route
+
+In your Express server, create an endpoint that will handle update requests.
+Step 2: Connect Endpoint to MongoDB
+
+Ensure your database connection is set up in server.js or app.js.
+Step 3: Add an Edit Button to Product Card
+
+ ## Milestone 14: Deleting Data from MongoDB
+
+🎯 Objective
+
+In this milestone, we will implement a DELETE operation in MongoDB using an API endpoint. We will also integrate a delete button in the frontend to allow users to remove data from the database by sending the product ID to the backend.
+
+📌 Steps to Implement
+Create the Delete EndpointFrontend Implementation
+
+Add a Delete Button
+
+Modify your product card component (e.g., ProductCard.js) to include a delete button
+✅ Summary
+
+Created a DELETE API endpoint in Express to remove a product by ID.
+
+Added a delete button in the frontend to call the endpoint.
+
+Ensured that the backend and frontend interact correctly to delete data.
+
+This milestone provides a detailed understanding of handling DELETE operations in a full-stack application
