@@ -1,6 +1,7 @@
 
 import  { useState, useEffect } from "react";
-import Product from "../components/auth/Product.jsx";
+import Product from "../components/auth/myProduct.jsx";
+import NavBar from "../components/auth/nav.jsx";
 // import { productData } from "../static/data.js";
 
 export default function Home() {
@@ -37,17 +38,15 @@ export default function Home() {
   }
 
   return (
-    <>
-     
-      <div className="w-full min-h-screen bg-neutral-800">
-        <h1 className="text-3xl text-center text-white py-6">Product Gallery</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
-          {products.map((product, index) => (
-            <Product key={product.id || index} {...product} />
-          ))}
-        </div>
+    <div className="w-full min-h-screen bg-neutral-800">
+      <NavBar />
+      <h1 className="text-3xl text-center py-4 p-6 text-white">Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+        {products.map((product) => (
+          <Product key={product._id} {...product} />
+        ))}
       </div>
-    </>
+    </div>
   );
 }
  

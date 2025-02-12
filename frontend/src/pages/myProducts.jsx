@@ -1,5 +1,6 @@
-import { useState } from "react";
-import Product from "../components/auth/Product";
+import { useEffect,useState } from "react";
+import myProduct from "../components/auth/myProduct";
+import NavBar from "../components/auth/nav";
 
 export default function MyProducts() {
     const [products, setProducts] = useState([]);
@@ -30,33 +31,42 @@ export default function MyProducts() {
     };
 
     return (
-        <div className="w-full min-h-screen bg-neutral-800">
-            <h1 className="text-3xl text-center py-4 p-6 text-white">My Products</h1>
-            <div className="flex justify-center mb-4">
-                <input
-                    type="email"
-                    placeholder="Enter email to filter"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="p-2 border rounded text-black"
-                />
-                <button
-                    onClick={() => fetchProducts(email)}
-                    className="ml-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded"
-                >
-                    Search
-                </button>
-            </div>
-            {loading && <div className="text-center text-white mt-10">Loading products...</div>}
-            {error && <div className="text-center text-red-500 mt-10">Error: {error}</div>}
-            {!loading && !error && products.length === 0 && (
-                <div className="text-center text-gray-400">Product not created.</div>
-            )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
-                {products.map((product) => (
-                    <Product key={product._id} {...product} />
-                ))}
-            </div>
-        </div>
+        <>
+  <NavBar />
+  <div className="w-full min-h-screen bg-neutral-800">
+    <h1 className="text-3xl text-center text-white py-6">My products</h1>
+    
+    <div className="flex justify-center mb-4">
+      <input
+        type="email"
+        placeholder="Enter email to filter"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="p-2 border rounded text-black"
+      />
+      <button
+        onClick={() => fetchProducts(email)}
+        className="ml-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded"
+      >
+        Search
+      </button>
+    </div>
+
+    {loading && <div className="text-center">Loading products...</div>}
+    {error && <div className="text-center text-red-500">Error: {error}</div>}
+    
+    {!loading && !error && products.length === 0 && (
+      <div className="text-center text-gray-400">Product not created.</div>
+    )}
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+      {products.map((product) => (
+        <myProduct key={product._id} {...product} />
+      ))}
+    </div>
+  </div>
+</>
+
+        
 );
 }
