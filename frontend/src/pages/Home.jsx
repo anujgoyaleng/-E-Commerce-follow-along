@@ -1,6 +1,6 @@
 
 import  { useState, useEffect } from "react";
-import Product from "../components/auth/myProduct.jsx";
+import Product from "../components/auth/Product.jsx";
 import NavBar from "../components/auth/nav.jsx";
 // import { productData } from "../static/data.js";
 
