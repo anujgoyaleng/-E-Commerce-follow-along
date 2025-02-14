@@ -338,3 +338,76 @@ Added a delete button in the frontend to call the endpoint.
 Ensured that the backend and frontend interact correctly to delete data.
 
 This milestone provides a detailed understanding of handling DELETE operations in a full-stack application
+
+### Milestone 15:Responsive Navbar Components
+
+# Overview
+
+This project includes the creation of a responsive navigation bar component (Nav component) that provides smooth navigation across multiple pages within the application. The Nav component will contain links to the following pages:
+
+1. Home
+
+2. My Products
+
+3. Add Product
+
+4. Cart
+
+The navigation bar will be designed to adapt seamlessly to all screen sizes, ensuring an optimal user experience across devices. The Nav component will be added to all pages, facilitating easy and intuitive navigation throughout the application.
+
+# Features
+
+1. Responsive navigation bar that adjusts to different screen sizes.
+
+2. Smooth navigation between pages.
+
+3. A user-friendly interface for accessing different sections of the application.
+
+
+### Milestone 16: Product Info Page
+# Overview
+
+This is a React-based e-commerce project built using Vite. The project includes features such as product listing, adding products to the cart, and managing quantities. It utilizes react-router-dom for navigation, axios for data fetching, and dotenv for managing environment variables.
+
+# Features
+
+1. Product listing page displaying all available products.
+
+2. Individual product details page.
+
+3. Add to Cart functionality with quantity selection.
+
+4. Shopping cart page displaying selected products.
+
+5. State management using React Context.
+
+6. Responsive UI for seamless experience across devices.
+
+7. Environment variable support for API integration.
+### milestone 17
+1: Update User Schema to Store Cart Products
+We'll modify the user schema to include a cart field that stores product details.
+
+2: Create a Cart Schema
+This schema will store cart items with fields like userId, productId, quantity, etc.
+
+3: Write an API Endpoint to Add Products to the Cart
+We'll create an API route that accepts product details and stores them in the database.
+
+### Milestone 18 📝
+
+1. Create a Backend Endpoint for Cart Page
+
+We need to create an API endpoint that allows the frontend to fetch the cart items for a specific user.
+
+2. Implement the Endpoint Logic
+
+Retrieve the user's email from the request.
+
+Query the database to fetch all products inside the cart associated with that user.
+
+Return the cart data as a JSON response.
+
+3. Test the Endpoint
+
+Use tools like Postman or cURL to send requests and verify that the correct data is returned.
