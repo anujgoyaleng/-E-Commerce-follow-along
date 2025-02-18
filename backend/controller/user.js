@@ -58,7 +58,7 @@ router.post(
       avatar,
     });
 
-    res.status(201).json({ success: true, user });
+    res.status(201).json({ success: true, user , message: "User created successfully" });
   })
 );
 
