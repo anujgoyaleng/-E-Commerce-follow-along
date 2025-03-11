@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AddressCard from "../components/auth/AddressCard";
 import NavBar from "../components/auth/nav";
 export default function Profile() {
@@ -9,6 +10,7 @@ export default function Profile() {
 		avatarUrl: "",
 	});
 	const [addresses, setAddresses] = useState([]);
+	const navigate = useNavigate();
 	useEffect(() => {
 		fetch(
 			`http://localhost:5050/api/v2/user/profile?email=${"Panda@gmail.com"}`,
@@ -32,6 +34,11 @@ export default function Profile() {
 				console.log("Addresses fetched:", data.addresses);
 			});
 	}, []);
+
+	const handleAddAddress = () => {
+		navigate("/create-address");
+	};
+
 	return (
 		<>
 			<NavBar />
@@ -49,7 +56,7 @@ export default function Profile() {
 									PICTURE
 								</div>
 								<img
-									src={personalDetails.avatarUrl ? `http://localhost:5050/${personalDetails.avatarUrl}` : `https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg`}
+									src={personalDetails.avatarUrl ? `http://localhost:8000/${personalDetails.avatarUrl}` : `https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg`}
 									alt="profile"
 									className="w-40 h-40 rounded-full"
 									onError={(e) => {
@@ -95,7 +102,10 @@ export default function Profile() {
 							</h1>
 						</div>
 						<div className="w-full h-max p-5">
-							<button className="w-max px-3 py-2 bg-neutral-600 text-neutral-100 rounded-md text-center hover:bg-neutral-100 hover:text-black transition-all duration-100">
+							<button
+								className="w-max px-3 py-2 bg-neutral-600 text-neutral-100 rounded-md text-center hover:bg-neutral-100 hover:text-black transition-all duration-100"
+								onClick={handleAddAddress}
+							>
 								Add Address
 							</button>
 						</div>
@@ -114,4 +124,4 @@ export default function Profile() {
 			</div>
 		</>
 	);
-} 
+}
