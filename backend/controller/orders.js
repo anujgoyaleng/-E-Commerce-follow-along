@@ -26,7 +26,9 @@ router.post('/place-order', async (req, res) => {
             const totalAmount = item.price * item.quantity;
             
             const order = new Order({
-                user: user._id,
+                user: user._id,  
+                
+                
                 orderItems: [item], // Each order contains a single item
                 shippingAddress,
                 totalAmount,    
