@@ -1,70 +1,60 @@
-const express = require('express');
-const router = express.Router();
-const Order = require('../model/order'); // Adjust path as needed
-const User = require('../model/user');   // Adjust path as needed
-
-router.post('/place-order', async (req, res) => {
-    try {
-        const { email, orderItems, shippingAddress } = req.body;
-        // Validate request data
-        if (!email) {   
-            return res.status(400).json({ message: 'Email is required.' });
-        }
-        if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
-            return res.status(400).json({ message: 'Order items are required.' });
-        }   
-        if (!shippingAddress) {
-            return res.status(400).json({ message: 'Shipping address is required.' });
-        }
-        // Retrieve user _id from the user collection using the provided email
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
-        }
-        // Create separate orders for each order item
-        const orderPromises = orderItems.map(async (item) => {
-            const totalAmount = item.price * item.quantity;
-            
-            const order = new Order({
-                user: user._id,
-                orderItems: [item], // Each order contains a single item
-                shippingAddress,
-                totalAmount,    
-            });
-            return order.save();
-        });
-        const orders = await Promise.all(orderPromises);
-        
-        res.status(201).json({ message: 'Orders placed and cart cleared successfully.', orders });
-    } catch (error) {
-        console.error('Error placing orders:', error);
-        res.status(500).json({ message: error.message });
-    }
-});
-
-router.get('/my-orders', async (req, res) => {
-    try {
-        const { email } = req.query;
-
-        // Validate the email parameter
-        if (!email) {
-            return res.status(400).json({ message: 'Email is required.' });
-        }
-
-        // Retrieve user _id from the user collection using the provided email
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
-        }
-
-        // Find all orders associated with the user
-        const orders = await Order.find({ user: user._id });
-
-        res.status(200).json({ orders });
-    } catch (error) {
-        console.error('Error fetching orders:', error);
-        res.status(500).json({ message: error.message });
-    }
-});
-
-module.exports = router;
+const mongoose = require('mongoose');
+const orderSchema = new mongoose.Schema(
+    {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        orderItems: [
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Product',
+                    required: true,
+                },
+                name: {
+                    type: String,
+                    required: true,
+                },
+                quantity: {
+                    type: Number,
+                    required: true,
+                    min: [1, 'Quantity cannot be less than 1'],
+                },
+                price: {
+                    type: Number,
+                    required: true,
+                    min: [0, 'Price cannot be negative'],
+                },
+                image: {
+                    type: Array,
+                    required: true,
+                },
+            },
+        ],
+        shippingAddress: {
+            country: { type: String, required: true },
+            city: { type: String, required: true },
+            address1: { type: String, required: true },
+            address2: { type: String },
+            zipCode: { type: Number, required: true },
+            addressType: { type: String, required: true },
+        },
+        totalAmount: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
+        orderStatus: {
+            type: String,
+            enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
+            default: 'Processing',
+        },
+        deliveredAt: {
+            type: Date,
+        },
+    },
+    { timestamps: true }
+);
+module.exports = mongoose.model('Order', orderSchema);
