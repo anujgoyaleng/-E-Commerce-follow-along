@@ -10,6 +10,7 @@ const CreateAddress = () => {
     const [address2, setAddress2] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [addressType, setAddressType] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const addressData = {
