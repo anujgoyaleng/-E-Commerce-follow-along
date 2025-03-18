@@ -1,39 +1,39 @@
 const express = require("express");
-const path = require("path");
-const cors = require("cors");
+const app = express(); 
+const ErrorHandler = require("./middleware/error");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const ErrorHandler = require("./middleware/error");
-const app = express();
-const product = require('./controller/product')
-const orders = require('./controller/orders')
+const cors = require("cors");
+const product= require('./controller/product')
+const path=require('path')
+const orders = require('./controller/orders');
 
-// Middleware
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow only your frontend origin
+    credentials: true, // Allow cookies and credentials
+  };
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors(corsOptions));
+app.use("/",express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-app.use(cors());
-app.use("/", express.static("uploads"))
-app.use('/uploads',express.static(path.join(__dirname,'uploads')));
-app.use('/products',express.static(path.join(__dirname,'products')));
+
+// Configuration for environment variables
+if (process.env.NODE_ENV !== "PRODUCTION") {
+    // Load environment variables from the .env file if the environment is not production
+    require("dotenv").config({
+        path: "backend/config/.env",
+    });
+};
 // Serve static files for uploads and products
-
-if(process.env.NODE_ENV !== "PRODUCTION"){
-  require("dotenv").config({
-    path: "backend/config/.env"
-  })
-}
-
-
-const user = require("./controller/user")
-
-app.use("/api/v2/user", user);
-app.use("/api/v2/product", product)
-
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/products', express.static(path.join(__dirname, 'products')));
 
-
+//import Routes
+const user = require("./controller/user");
+app.use("/api/v2/user", user);
+app.use("/api/v2/product", product);
+app.use("/api/v2/orders", orders);
 app.use(ErrorHandler);
-
-module.exports = app;
+module.exports= app;
