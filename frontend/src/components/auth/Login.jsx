@@ -22,7 +22,6 @@ const Login = () => {
         "http://localhost:5050/api/v2/user/login",
         { email, password }
       );
-
       if (response.data.success) {
         // Dispatch email to Redux store to be globally available
         dispatch(setEmail(email));

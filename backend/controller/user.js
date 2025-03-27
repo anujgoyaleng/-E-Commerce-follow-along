@@ -67,27 +67,28 @@ router.post(
     if (!isPasswordMatched) {
         return next(new ErrorHandler("Invalid Email or Password", 401));
     }
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET || "your_jwt_secret",
-      { expiresIn: "1h" }
-  );
-
-  // Set token in an HttpOnly cookie
-  res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // use true in production
-      sameSite: "Strict",
-      maxAge: 3600000, // 1 hour
-  });
-
-  user.password = undefined; // Remove password from response
-    res.status(200).json({
-        success: true,
-        user,
-    });
-}));
+        // Generate JWT token
+        const token = jwt.sign(
+          { id: user._id, email: user.email },
+          process.env.JWT_SECRET || "your_jwt_secret",
+          { expiresIn: "1h" }
+      );
+    
+      // Set token in an HttpOnly cookie
+      res.cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // use true in production
+          sameSite: "Strict",
+          maxAge: 3600000, // 1 hour
+      });
+    
+      user.password = undefined; // Remove password from response
+        res.status(200).json({
+            success: true,
+            user,
+        });
+    }));
+    
 
 router.get("/profile", catchAsyncErrors(async (req, res, next) => {
   const { email } = req.query;
