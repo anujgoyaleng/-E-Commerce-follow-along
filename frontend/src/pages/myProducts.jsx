@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Myproduct from "../components/auth/myproduct";
 import NavBar from "../components/auth/nav";
 
@@ -6,9 +7,18 @@ export default function MyProducts() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const email = "Panda@gmail.com"
+
+    // Get the email from Redux state
+    const state = useSelector((state) => state);
+    console.log(state);
+    const email = useSelector((state) => state.user.email);
 
     useEffect(() => {
+        // Only fetch if email is available
+        if (!email) return;
+
+        setLoading(true);
+
         fetch(`http://localhost:5050/api/v2/product/my-products?email=${email}`)
             .then((res) => {
                 if (!res.ok) {
@@ -35,7 +45,6 @@ export default function MyProducts() {
         return <div className="text-center text-red-500 mt-10">Error: {error}</div>;
     }
 
-
     return (
         <>
             <NavBar />
@@ -48,5 +57,5 @@ export default function MyProducts() {
                 </div>
             </div>
         </>
-);
+    );
 }
