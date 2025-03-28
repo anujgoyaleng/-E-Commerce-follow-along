@@ -18,10 +18,7 @@ const Login = () => {
     e.preventDefault(); // Prevent the default form submit behavior
     try {
       // Make the POST request to the backend
-      const response = await axios.post(
-        "http://localhost:5050/api/v2/user/login",
-        { email, password }
-      );
+      const response = await axios.post("https://ecommerce-fa.onrender.com/api/v2/user/login", { email, password }, {withCredentials: true,});
       if (response.data.success) {
         // Dispatch email to Redux store to be globally available
         dispatch(setEmail(email));
