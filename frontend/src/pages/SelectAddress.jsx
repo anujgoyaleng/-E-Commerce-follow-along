@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../components/auth/nav'; // Ensure the path is correct and component name matches
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'; // Import useSelector to get email from Redux
-import axios from 'axios';
+import axios from '../axiosConfig';
 
 const SelectAddress = () => {
     const [addresses, setAddresses] = useState([]);
@@ -17,38 +17,21 @@ const SelectAddress = () => {
     useEffect(() => {
         // Only fetch addresses if email exists
         if (!userEmail) return;
+        axios.get('/api/v2/user/addresses', { params: { email: userEmail } })
+             .then((res) => {
+                 if (res.data && Array.isArray(res.data.addresses)) {
+                     setAddresses(res.data.addresses);
 
-        const fetchAddresses = async () => {
-            try {
-                const response = await axios.get('http://localhost:5050/api/v2/user/addresses', {
-                    params: { email: userEmail },
-                });
-                if (response.status !== 200) {
-                    if (response.status === 404) {
-                        throw new Error('User not found.');
-                    } else if (response.status === 400) {
-                        throw new Error('Bad request. Email parameter is missing.');
-                    } else {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                }
-                const data = response.data;
-                if (data && Array.isArray(data.addresses)) {
-                    setAddresses(data.addresses);
                 } else {
                     setAddresses([]);
                     console.warn('Unexpected response structure:', data);
                 }
-            } catch (err) {
+            }) .catch ((err) => {
                 console.error('Error fetching addresses:', err);
                 setError(err.response?.data?.message || err.message || 'An unexpected error occurred.');
-            } finally {
-                setLoading(false);
-            }
-        };
+            }) .finally (() =>setLoading(false));
+        }, [userEmail]);
 
-        fetchAddresses();
-    }, [userEmail]);
 
     const handleSelectAddress = (addressId) => {
         // Navigate to Order Confirmation with the selected address ID and email

@@ -3,6 +3,7 @@ import  { useState, useEffect } from "react";
 import Product from "../components/auth/Product.jsx";
 import NavBar from "../components/auth/nav.jsx";
 // import { productData } from "../static/data.js";
+import axios from "../axiosConfig";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -10,15 +11,9 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5050/api/v2/product/get-products")
+    axios.get("/api/v2/product/get-products")
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json()
-      })
-      .then((data) => {
-        setProducts(data.products);
+        setProducts(res.data.products);
         setLoading(false);
       })
       .catch((err) => {

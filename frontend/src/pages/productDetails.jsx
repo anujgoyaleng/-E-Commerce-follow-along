@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import NavBar from "../components/auth/nav";
 import { IoIosAdd } from "react-icons/io";
 import { IoIosRemove } from "react-icons/io";
 import { useSelector } from "react-redux"; // Import useSelector
+import axios from "../axiosConfig";
 
 export default function ProductDetails() {
 	const { id } = useParams();
@@ -19,9 +19,7 @@ export default function ProductDetails() {
 	useEffect(() => {
 		const fetchProduct = async () => {
 			try {
-				const response = await axios.get(
-					`http://localhost:5050/api/v2/product/product/${id}`
-				);
+				const response = await axios.get(`/api/v2/product/product/${id}`);	
 				console.log("Fetched product:", response.data.product);
 				setProduct(response.data.product); // Ensure correct state setting
 				setLoading(false);
@@ -53,9 +51,13 @@ export default function ProductDetails() {
 	};
 
 	const addtocart = async () => {
+		if (!email) {
+			alert("No user email found! Please login.");
+			return;
+		}
+
 		try {
-			const response = await axios.post(
-				"http://localhost:5050/api/v2/product/cart",
+			const response = await axios.post("/api/v2/product/cart",
 				{
 					userId: email, // ✅ Updated to fetch email dynamically
 					productId: id,
@@ -63,6 +65,7 @@ export default function ProductDetails() {
 				}
 			);
 			console.log("Added to cart:", response.data);
+			alert("Item added to cart!");
 		} catch (err) {
 			console.error("Error adding to cart:", err);
 		}
@@ -194,10 +197,7 @@ export default function ProductDetails() {
 								</div>
 							</div>
 							<div className="flex flex-wrap gap-x-5 my-3">
-								<button
-									className="bg-black text-white px-5 py-2 rounded-full hover:bg-neutral-800 hover:-translate-y-1.5 active:translate-y-0 transition-transform duration-200 ease-in-out active:duration-0 active:ease-linear"
-									onClick={addtocart}
-								>
+							<button className="bg-black text-white px-5 py-2 rounded-full hover:bg-neutral-800 hover:-translate-y-1.5 active:translate-y-0 transition-transform duration-200 ease-in-out" onClick={addtocart}>
 									Add to Cart
 								</button>
 							</div>
