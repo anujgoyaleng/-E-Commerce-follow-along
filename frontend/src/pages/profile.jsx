@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AddressCard from "../components/auth/AddressCard";
 import NavBar from "../components/auth/nav";
+import axios from "../axiosConfig";
 
 export default function Profile() {
     // Retrieve email from Redux state
@@ -20,24 +21,14 @@ export default function Profile() {
     useEffect(() => {
         // Only fetch profile if email exists
         if (!email) return;
-
-        fetch(`http://localhost:5050/api/v2/user/profile?email=${email}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        axios
+ 			.get("/api/v2/user/profile", { params: { email } })
+        
             .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setPersonalDetails(data.user);
-                setAddresses(data.addresses);
-                console.log("User fetched:", data.user);
-                console.log("Addresses fetched:", data.addresses);
+                setPersonalDetails(res.data.user);
+				setAddresses(res.data.addresses);
+				console.log("User fetched:", res.data.user);
+				console.log("Addresses fetched:", res.data.addresses);  
             })
             .catch((err) => console.error(err));
     }, [email]);
@@ -70,8 +61,7 @@ export default function Profile() {
                                     className="w-40 h-40 rounded-full"
                                     onError={(e) => {
                                         e.target.onerror = null; // Prevents infinite loop if the default image also fails
-                                        e.target.src =
-                                            "https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg";
+                                        e.target.src = "https://cdn.vectorstock.com/i/500x500/17/61/male-avatar-profile-picture-vector-10211761.jpg";
                                     }}
                                 />
                             </div>
